@@ -48,7 +48,7 @@ public class Jid {
                     }
                 }
             } else {
-                this.domain = jids[0];
+                this.eid = jids[0];
             }
         }
 

@@ -48,7 +48,7 @@ public class IQOperationTagHandler extends IQOperationHandler<List<String>> {
 
         return Mono.just(iqBody).doOnNext(b -> {
             Set<String> oldTags = user.getTags();
-            log.info("Set tags:{} {}", user.logPrefix(), oldTags);
+            log.info("Set tags:{} old:{},new:{}", user.logPrefix(), oldTags,iqBody.getBody());
             // Set new tags
             user.setTags(iqBody.getBody());
             this.tagService.setUserTags(user, oldTags, b.getBody());
