@@ -3,6 +3,9 @@ package com.iflytek.phantom.im.core.engine;
 import com.iflytek.phantom.im.configuration.EngineProperties;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.function.Function;
+
 /**
  * @description:
  * @author: 高露 lugao2
@@ -12,16 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class IMEngineConsumerFactory {
 
-    public static IMEngineConsumer getEngineProducer(EngineProperties properties) {
-        IMEngineConsumer consumer = new IMRocketMQConsumer(properties.getTenant(), properties.getApp());
-        try {
-            consumer.init(properties.getHost());
-            return consumer;
-        } catch (Exception e) {
-            log.error("Get consumer error:{}", e.getMessage());
-            return null;
-        }
-
+    public static IMEngineConsumer getEngineProducer(EngineProperties properties,String group, Function<List<MQMessage>, Boolean> listener) {
+        return new IMRocketMQConsumer(properties.getAddr(),group, listener);
     }
 
 

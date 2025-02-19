@@ -1,6 +1,7 @@
 package com.iflytek.phantom.im.ws;
 
 import com.iflytek.phantom.im.core.UserManager;
+import com.iflytek.phantom.im.service.TagService;
 import com.iflytek.phantom.im.ws.handler.AbstractHandler;
 import com.iflytek.phantom.im.ws.handler.ComposeHandler;
 import com.iflytek.phantom.im.ws.handler.iq.IQSetHandler;
@@ -25,7 +26,7 @@ public class WebSocketConfiguration {
         return new SimpleUrlHandlerMapping() {{
             setOrder(Ordered.HIGHEST_PRECEDENCE);
             setUrlMap(new HashMap<String, WebSocketHandler>() {{
-                put("phantom_im", handler);
+                put("/phantom_im/api/v1/ws", handler);
             }});
         }};
     }
@@ -47,8 +48,8 @@ public class WebSocketConfiguration {
     }
 
     @Bean
-    public IQSetHandler iqSetHandler() {
-        return new IQSetHandler();
+    public IQSetHandler iqSetHandler(TagService tagService) {
+        return new IQSetHandler(tagService);
     }
 
     @Bean

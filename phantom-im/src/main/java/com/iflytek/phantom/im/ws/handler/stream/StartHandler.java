@@ -18,12 +18,12 @@ import reactor.core.publisher.Mono;
  * @Version 1.0.0
  */
 @Slf4j
-public class StartHandler extends StreamHandler<StartHandler.StartBody> {
+public class StartHandler extends StreamHandler {
 
 
     @Override
-    public Mono<Void> onHandler(User user, AbstractJMPPMessage<StartHandler.StartBody> content) {
-        user.setGlobalInfo(content.getBody());
+    public Mono<Void> onHandler(User user, AbstractJMPPMessage content) {
+        user.setGlobalInfo(content.getObjectBody(StartBody.class));
         content.setBody(null);
         content.setFrom(null);
         return user.sendMessage(content);

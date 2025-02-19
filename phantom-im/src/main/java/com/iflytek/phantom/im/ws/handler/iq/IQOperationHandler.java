@@ -1,6 +1,7 @@
 package com.iflytek.phantom.im.ws.handler.iq;
 
 import com.iflytek.phantom.im.core.User;
+import com.iflytek.phantom.im.ws.AbstractJMPPMessage;
 import reactor.core.publisher.Mono;
 
 /**
@@ -12,7 +13,7 @@ import reactor.core.publisher.Mono;
 public abstract class IQOperationHandler<T> {
 
 
-    public abstract Mono<Void> handler(User user, String type, IQMessage<T> iqBody);
+    public abstract Mono<Void> handler(User user, AbstractJMPPMessage.MESSAGE_TYPE type, IQMessage<T> iqBody);
 
     public abstract String name();
 }

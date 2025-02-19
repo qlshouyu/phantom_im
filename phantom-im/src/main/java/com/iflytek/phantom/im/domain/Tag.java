@@ -18,6 +18,7 @@ public class Tag {
 
     @Getter
     private String tag;
+    // key is jid
     private Map<String, User> users;
     private ReentrantLock lock;
 

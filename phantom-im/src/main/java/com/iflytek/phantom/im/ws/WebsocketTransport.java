@@ -51,8 +51,6 @@ public class WebsocketTransport implements WebSocketHandler {
     private ComposeHandler composeHandler;
 
 
-    private final static ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-
     public static void main(String[] args) {
         try {
             URI uri = new URI("ws://localhost:8789/phantom_im");
@@ -73,7 +71,7 @@ public class WebsocketTransport implements WebSocketHandler {
     public Mono<Void> handle(WebSocketSession session) {
         log.info("{}:Add new client", session.getId());
         WSQuery query = new WSQuery(session.getHandshakeInfo().getUri());
-        String appId = query.get("app");
+        // String appId = query.get("app");
         String jid = query.get("jid");
         User user = new User(jid, session);
         userManager.addUser(user);
@@ -83,7 +81,7 @@ public class WebsocketTransport implements WebSocketHandler {
             log.info("{} doOnTerminate", user.logPrefix());
         }).doOnCancel(() -> {
             log.info("{} doOnCancel", user.logPrefix());
-            userManager.deleteUser(user.getJid());
+            userManager.deleteUser(user.getJid().getJid());
         }).doOnNext(message -> {
             if (message.getType().equals(WebSocketMessage.Type.BINARY)) {
                 log.info("{} Receive binary message", user.logPrefix());
@@ -110,7 +108,7 @@ public class WebsocketTransport implements WebSocketHandler {
             }
         }).doFinally(__ -> {
             log.info("{} doFinally", user.logPrefix());
-            userManager.deleteUser(user.getJid());
+            userManager.deleteUser(user.getJid().getJid());
         }).then();
     }
 

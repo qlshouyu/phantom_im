@@ -9,14 +9,11 @@ import com.iflytek.phantom.im.ws.AbstractJMPPMessage;
  * @create: 2025/2/5
  * @Version 1.0.0
  */
-public class IQMessage<T> extends AbstractJMPPMessage<T> {
+public class IQMessage extends AbstractJMPPMessage {
 
-    public IQMessage(String id, String type, String from, T body) {
-        this(id, type, new Jid(from), body);
-    }
 
-    public IQMessage(String id, String type, Jid from,  T body) {
-        super(id, "iq", type, from, null, body);
+    public IQMessage(String id, MESSAGE_TYPE type, Jid from,  Object body) {
+        super(id, MESSAGE_CATEGORY.iq, type, from, null, body);
     }
 
 }

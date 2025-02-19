@@ -11,14 +11,14 @@ import java.util.Arrays;
  * @create: 2025/2/5
  * @Version 1.0.0
  */
-public class PresenceMessage<T> extends AbstractJMPPMessage<T> {
+public class PresenceMessage extends AbstractJMPPMessage {
 
-    public PresenceMessage(String id, String type, String from, String to, T body) {
+    public PresenceMessage(String id, MESSAGE_TYPE type, String from, String to, Object body) {
         this(id, type, new Jid(from), new Jid(to), body);
     }
 
-    public PresenceMessage(String id, String type, Jid from, Jid to, T body) {
-        super(id, "presence", type, from, Arrays.asList(to), body);
+    public PresenceMessage(String id, MESSAGE_TYPE type, Jid from, Jid to, Object body) {
+        super(id, MESSAGE_CATEGORY.presence, type, from, Arrays.asList(to.getJid()), body);
     }
 
 }

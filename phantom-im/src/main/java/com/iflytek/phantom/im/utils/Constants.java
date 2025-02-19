@@ -10,4 +10,21 @@ public class Constants {
     public static String GPREFIX = "ph_im::";
 
     public static String PREFIX_TAG_USER = GPREFIX + "{tag_users}::";
+
+    public enum PoolContentType {
+        PUSH("push"),
+        IM_PEER("im_peer"),
+        IM_GROUP("im_group");
+
+        private final String value;
+
+        PoolContentType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+    }
 }

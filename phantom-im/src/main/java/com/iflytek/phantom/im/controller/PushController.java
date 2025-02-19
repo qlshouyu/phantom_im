@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
+import com.iflytek.phantom.im.utils.Constants;
 
 import java.util.UUID;
 
@@ -27,20 +28,26 @@ public class PushController extends AbstractController {
     private IMEngineProducerPool producerPool;
 
     @PostMapping
-    public Mono<ResponseResult> push(@RequestBody PushVo data) {
+    public Mono<ResponseResult<String>> push(@RequestBody PushVo data) {
         return Mono.just(data).doOnNext(d -> {
             //String id, String headlineType,T body, String... tos
-            HeadlineJMPPMessage<String> msg = new HeadlineJMPPMessage(
+            String pushToPrefix = "@";
+            if ("tag".equals(data.getType())) {
+                pushToPrefix = "t" + pushToPrefix;
+            } else if ("jid".equals(data.getType())) {
+                pushToPrefix = "c" + pushToPrefix;
+            }
+            final String fpushToPrefix = pushToPrefix;
+            HeadlineJMPPMessage msg = new HeadlineJMPPMessage(
                     UUID.randomUUID().toString().replace("-", ""),
-                    data.getType(),
-                    data.getTo(),
+                    data.getTo().stream().map(to -> fpushToPrefix + to).toList(),
                     data.getBody()
-                    );
+            );
             try {
-                producerPool.get().producer(msg);
+                producerPool.get(Constants.PoolContentType.PUSH).producer(msg);
             } catch (Exception e) {
                 Mono.error(e);
             }
-        }).map(p -> new ResponseResult<>());
+        }).map(p -> new ResponseResult<>("成功"));
     }
 }

@@ -1,5 +1,8 @@
 package com.iflytek.phantom.im.configuration;
 
+import com.iflytek.phantom.im.utils.InetIPv6Utils;
+import org.springframework.cloud.commons.util.InetUtilsProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -10,5 +13,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class PhantomIMAutoconfiguration {
-
+    @Bean
+    public InetIPv6Utils inetIPv6Utils(InetUtilsProperties properties) {
+        return new InetIPv6Utils(properties);
+    }
 }

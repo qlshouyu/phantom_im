@@ -9,14 +9,14 @@ import com.iflytek.phantom.im.ws.AbstractJMPPMessage;
  * @create: 2025/2/5
  * @Version 1.0.0
  */
-public class PresencePingMessage<T> extends AbstractJMPPMessage<T> {
+public class PresencePingMessage extends AbstractJMPPMessage {
 
-    public PresencePingMessage(String id, String from, T body) {
+    public PresencePingMessage(String id, String from, Object body) {
         this(id, new Jid(from), body);
     }
 
-    public PresencePingMessage(String id, Jid from, T body) {
-        super(id, "presence", "ping", from, null, body);
+    public PresencePingMessage(String id, Jid from, Object body) {
+        super(id, MESSAGE_CATEGORY.presence, MESSAGE_TYPE.ping, from, null, body);
     }
 
 }

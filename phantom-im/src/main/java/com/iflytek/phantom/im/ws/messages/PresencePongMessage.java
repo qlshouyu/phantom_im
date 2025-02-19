@@ -10,16 +10,13 @@ import org.apache.commons.lang3.StringUtils;
  * @create: 2024/12/27
  * @Version 1.0.0
  */
-public class PresencePongMessage extends AbstractJMPPMessage<String> {
+public class PresencePongMessage extends AbstractJMPPMessage {
 
     private static String strBody;
 
-//    public PresencePongMessage(String id) {
-//        this(id, new Jid(from));
-//    }
 
     public PresencePongMessage(String id) {
-        super(id, "presence", "pong", (String) null, null, null);
+        super(id, MESSAGE_CATEGORY.presence, MESSAGE_TYPE.ack,  null, null, null);
     }
 
 

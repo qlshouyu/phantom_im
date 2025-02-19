@@ -16,7 +16,7 @@ import java.util.Map;
  * @Version 1.0.0
  */
 @Slf4j
-public class ComposeHandler extends AbstractHandler<Object> {
+public class ComposeHandler extends AbstractHandler {
     private Map<String, Map<String, AbstractHandler>> adapterHandlers;
 
     public ComposeHandler(List<AbstractHandler> handlers) {
@@ -34,6 +34,7 @@ public class ComposeHandler extends AbstractHandler<Object> {
 
     @Override
     public Mono<Void> onHandler(User user, AbstractJMPPMessage content) {
+        log.info("Rcv: {}", content);
         Map<String, AbstractHandler> category = this.adapterHandlers.get(content.getC());
         if (category != null) {
             AbstractHandler handler = category.get(content.getType());

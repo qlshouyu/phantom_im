@@ -2,7 +2,6 @@ package com.iflytek.phantom.im.ws.handler.presence;
 
 import com.iflytek.phantom.im.core.User;
 import com.iflytek.phantom.im.ws.AbstractJMPPMessage;
-import com.iflytek.phantom.im.ws.handler.IQHandler;
 import com.iflytek.phantom.im.ws.handler.MessageHandler;
 import com.iflytek.phantom.im.ws.messages.PresencePongMessage;
 import reactor.core.publisher.Mono;

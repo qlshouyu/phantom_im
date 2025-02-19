@@ -6,7 +6,7 @@ package com.iflytek.phantom.im.ws.handler;
  * @create: 2025/2/6
  * @Version 1.0.0
  */
-public abstract class IQHandler<T> extends AbstractHandler<T> {
+public abstract class IQHandler<T> extends AbstractHandler {
     @Override
     public String category() {
         return "iq";

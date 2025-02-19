@@ -56,6 +56,15 @@ public class User {
         }
     }
 
+    // 判断用的tags中是否包含函数中给出的tags，只要包含一个就返回true
+    public boolean containsTags(String... tags) {
+      for (String tag : tags) {
+        if (this.tags.contains(tag)) {
+          return true;
+        }
+      }
+      return false;
+    }
 
     public Mono<Void> sendMessage(AbstractJMPPMessage msg) {
         return this.session.send(Mono.just(this.session.textMessage(msg.toString()))).doOnError(e -> {

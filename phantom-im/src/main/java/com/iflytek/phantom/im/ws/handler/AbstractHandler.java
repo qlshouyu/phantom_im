@@ -10,9 +10,9 @@ import reactor.core.publisher.Mono;
  * @create: 2024/12/27
  * @Version 1.0.0
  */
-public abstract class AbstractHandler<T> {
+public abstract class AbstractHandler {
 
-    public abstract Mono<Void> onHandler(User user, AbstractJMPPMessage<T> content);
+    public abstract Mono<Void> onHandler(User user, AbstractJMPPMessage content);
 
 
     public abstract String type();

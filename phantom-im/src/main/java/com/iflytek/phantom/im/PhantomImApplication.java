@@ -1,12 +1,12 @@
 package com.iflytek.phantom.im;
 
-import com.iflytek.phantom.im.core.engine.IMEngineConsumerPool;
+import com.iflytek.phantom.im.core.engine.IMEngineProducerPool;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 //@EnableDiscoveryClient
@@ -17,9 +17,10 @@ public class PhantomImApplication implements ApplicationRunner {
     }
 
     @Autowired
-    private IMEngineConsumerPool pool;
+    private IMEngineProducerPool pool;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        pool.get().consumer();
+        pool.start();
     }
 }

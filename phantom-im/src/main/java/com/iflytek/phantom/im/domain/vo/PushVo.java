@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class PushVo {
     private String body;
-    // 推送类型 t,c
+    // 推送类型 tag,jid
     private String type;
     private List<String> to;
 

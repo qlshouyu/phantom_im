@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class IQMessage<T> implements Serializable {
+public class IQMessage<T> implements Serializable {
 
     // tag,user
     protected String name;

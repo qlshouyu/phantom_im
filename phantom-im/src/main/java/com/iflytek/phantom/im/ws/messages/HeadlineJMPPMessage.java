@@ -1,9 +1,7 @@
 package com.iflytek.phantom.im.ws.messages;
 
-import com.iflytek.phantom.im.domain.Jid;
 import com.iflytek.phantom.im.ws.AbstractJMPPMessage;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,11 +10,11 @@ import java.util.List;
  * @create: 2025/2/5
  * @Version 1.0.0
  */
-public class HeadlineJMPPMessage<T> extends AbstractJMPPMessage<T> {
+public class HeadlineJMPPMessage extends AbstractJMPPMessage {
 
-    public HeadlineJMPPMessage(String id, String headlineType, List<String> tos, T body) {
+    public HeadlineJMPPMessage(String id,List<String> tos,Object body) {
 //        this(id, headlineType, null, new Jid(to), body);
-        super(id, "message", "headline@" + headlineType, null, tos, body);
+        super(id, MESSAGE_CATEGORY.message, MESSAGE_TYPE.headline, null, tos, body);
     }
 
 //    public HeadlineJMPPMessage(String id, String headlineType, Jid from, Jid to, T body) {

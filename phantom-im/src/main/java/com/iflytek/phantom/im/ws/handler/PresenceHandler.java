@@ -12,7 +12,7 @@ import java.util.Map;
  * @create: 2025/2/6
  * @Version 1.0.0
  */
-public abstract class PresenceHandler<T> extends AbstractHandler<T> {
+public abstract class PresenceHandler extends AbstractHandler {
 
 
     @Override
