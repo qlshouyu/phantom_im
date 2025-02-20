@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import com.iflytek.phantom.im.utils.Constants;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -49,5 +51,33 @@ public class PushController extends AbstractController {
                 Mono.error(e);
             }
         }).map(p -> new ResponseResult<>("成功"));
+    }
+
+    @PostMapping("/multi")
+    public Mono<ResponseResult<String>> push(@RequestBody List<PushVo> data) {
+
+        // 使用Flux处理每个元素
+        return Flux.fromIterable(data)
+                .map(item -> {
+                    String pushToPrefix = "@";
+                    if ("tag".equals(item.getType())) {
+                        pushToPrefix = "t" + pushToPrefix;
+                    } else if ("jid".equals(item.getType())) {
+                        pushToPrefix = "c" + pushToPrefix;
+                    }
+                    final String fpushToPrefix = pushToPrefix;
+                    HeadlineJMPPMessage msg = new HeadlineJMPPMessage(
+                            UUID.randomUUID().toString().replace("-", ""),
+                            item.getTo().stream().map(to -> fpushToPrefix + to).toList(),
+                            item.getBody()
+                    );
+                    try {
+                        producerPool.get(Constants.PoolContentType.PUSH).producer(msg);
+                    } catch (Exception e) {
+                        Mono.error(e);
+                    }
+                    return item;
+                })
+                .then().map(p -> new ResponseResult<>("成功"));
     }
 }

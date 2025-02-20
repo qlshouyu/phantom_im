@@ -47,17 +47,17 @@ public class UserManager {
      */
     private boolean listener(List<MQMessage> messages) {
         if (messages != null) {
-            for (MQMessage message : messages){
+            for (MQMessage message : messages) {
 
                 log.info("Consumer msg:{}", message);
                 AbstractJMPPMessage jmppMessage = message.getObjBody();
                 switch (jmppMessage.getENCategory()) {
                     case message -> {
-                        AbstractJMPPMessage.MESSAGE_TYPE type=null;
+                        AbstractJMPPMessage.MESSAGE_TYPE type = null;
                         try {
-                            type=jmppMessage.getENType();
-                        }catch (Exception e){
-                            log.warn("Not support the type:{}",jmppMessage.getType());
+                            type = jmppMessage.getENType();
+                        } catch (Exception e) {
+                            log.warn("Not support the type:{}", jmppMessage.getType());
                             return true;
                         }
                         switch (type) {
@@ -65,11 +65,10 @@ public class UserManager {
                                 List<String> tags = new ArrayList<>();
                                 List<String> jids = new ArrayList<>();
                                 jmppMessage.getTo().forEach(tag -> {
-                                    String strTo = (String) tag;
-                                    if (strTo.startsWith("t@")) {
-                                        tags.add(strTo.substring(2));
-                                    } else if (strTo.startsWith("c@")) {
-                                        jids.add(strTo.substring(2));
+                                    if (tag.startsWith("t@")) {
+                                        tags.add(tag.substring(2));
+                                    } else if (tag.startsWith("c@")) {
+                                        jids.add(tag.substring(2));
                                     }
                                 });
                                 // send by tag

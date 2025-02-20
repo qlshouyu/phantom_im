@@ -1,0 +1,18 @@
+.container {
+  min-height: 100vh;
+  padding: 24px;
+  background: #f0f2f5;
+}
+
+.sider {
+  background: #fff;
+  padding: 24px;
+  margin-right: 24px;
+  border-radius: 8px;
+}
+
+.content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+} 
